@@ -16,7 +16,7 @@ var currentTx = '';
 
 const composeTransaction = (body) => {
   var split = body.split('|');
-  if (split && split.length() == 2) {
+  if (split && split.length == 2) {
     // the prefix is the Tx ID
     if (split[0] === currentTxId) {
       // means we have already started processing this message
