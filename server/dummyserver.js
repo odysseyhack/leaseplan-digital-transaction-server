@@ -2,6 +2,10 @@ const addMoreRoutes = (app) => {
     app.get('/dummyroute', (req, res) => res.send('dummy route'))
 
     app.get('/onemoreroute', (req, res) => res.send('another one'))
+
+    addMoreRoutes1(app)
+    addMoreRoutes2(app)
+    addMoreRoutes3(app)
 }
 
 const addMoreRoutes1 = (app) => {
