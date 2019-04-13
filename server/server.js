@@ -1,4 +1,18 @@
 const { asyncPoll } = require('async-poll')
+
+const addRoutes = (app, forwardTransaction) => {
+    var description = 'Transaction checker \r\n POST /forward-transaction \r\n Send a raw transaction to this url and it will be forwarded to the network';
+    app.get('/', (req, res) => res.send(description))
+    app.post('/forward-transaction', function(req, res) {
+        forwardTransaction(req.body.Body, res)
+    });
+}
+
+const addMoreRoutes = (app) => {
+    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+
+    app.get('/onemoreroute', (req, res) => res.send('another one'))
+}
   
 const startPolling = (pollBalance) => {
     const conditionFn = d => false; //keep polling
@@ -12,4 +26,5 @@ const startPolling = (pollBalance) => {
         .catch(console.error);
 }
 
+module.exports.addRoutes = addRoutes
 module.exports.startPolling = startPolling
