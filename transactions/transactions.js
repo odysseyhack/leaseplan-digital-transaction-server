@@ -22,8 +22,10 @@ const composeTransaction = (body) => {
       // means we have already started processing this message
       currentTx += split[1];
 
+      console.log("currentTx", currentTx)
       // the transaction should be complete so we can send it
-      forwardTransaction('0x' + currentTx);
+      forwardTransaction(currentTx);
+      
 
       currentTx = '';
       currentTxId = '';
