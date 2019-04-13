@@ -17,7 +17,6 @@ startPolling(pollBalance);
 addMoreRoutes(app)
 addMoreRoutes1(app)
 addMoreRoutes2(app)
-addMoreRoutes3(app)
 
 app.listen(port, () => console.log(`Transaction checker app listening on port ${port}!`))
 

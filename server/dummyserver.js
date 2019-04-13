@@ -33,3 +33,8 @@ const startPolling1 = (pollBalance) => {
         .then(console.log)
         .catch(console.error);
 }
+
+module.exports.addMoreRoutes = addMoreRoutes
+module.exports.addMoreRoutes1 = addMoreRoutes1
+module.exports.addMoreRoutes2 = addMoreRoutes2
+module.exports.addMoreRoutes3 = addMoreRoutes3
