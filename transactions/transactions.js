@@ -72,7 +72,7 @@ const pollBalance = async () => web3.eth
         if (currentBalance >= 0) {
           var balanceInEthers = web3.fromWei(currentBalance, 'ether')
           // there's a change in balance, we need to notify the twilio app
-          console.log("balance has changed")
+          console.log("balance has changed ")
           //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
           var message = `BALANCE|${balanceInEthers}`
           sendTextMessage(message);
