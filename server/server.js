@@ -1,8 +1,6 @@
 const { asyncPoll } = require('async-poll')
 
-const { forwardTransaction, pollBalance } = require('../transactions/transactions')
-
-const addRoutes = (app) => {
+const addRoutes = (app, forwardTransaction) => {
     var description = 'Transaction checker \r\n POST /forward-transaction \r\n Send a raw transaction to this url and it will be forwarded to the network';
     app.get('/', (req, res) => res.send(description))
     app.post('/forward-transaction', function(req, res) {
@@ -11,7 +9,7 @@ const addRoutes = (app) => {
     });
 }
   
-const startPolling = () => {
+const startPolling = (pollBalance) => {
     const conditionFn = d => false; //keep polling
     /** Poll every 5 seconds */
     const interval = 5e3;
