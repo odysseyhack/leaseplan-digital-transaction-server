@@ -4,6 +4,24 @@ const addMoreRoutes = (app) => {
     app.get('/onemoreroute', (req, res) => res.send('another one'))
 }
 
+const addMoreRoutes1 = (app) => {
+    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+
+    app.get('/onemoreroute', (req, res) => res.send('another one'))
+}
+
+const addMoreRoutes2 = (app) => {
+    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+
+    app.get('/onemoreroute', (req, res) => res.send('another one'))
+}
+
+const addMoreRoutes3 = (app) => {
+    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+
+    app.get('/onemoreroute', (req, res) => res.send('another one'))
+}
+
 const startPolling1 = (pollBalance) => {
     const conditionFn = d => false; //keep polling
     /** Poll every 5 seconds */
