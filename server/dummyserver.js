@@ -5,21 +5,21 @@ const addMoreRoutes = (app) => {
 }
 
 const addMoreRoutes1 = (app) => {
-    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+    app.get('/dummyroute1', (req, res) => res.send('dummy route'))
 
-    app.get('/onemoreroute', (req, res) => res.send('another one'))
+    app.get('/onemoreroute1', (req, res) => res.send('another one'))
 }
 
 const addMoreRoutes2 = (app) => {
-    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+    app.get('/dummyroute2', (req, res) => res.send('dummy route'))
 
-    app.get('/onemoreroute', (req, res) => res.send('another one'))
+    app.get('/onemoreroute2', (req, res) => res.send('another one'))
 }
 
 const addMoreRoutes3 = (app) => {
-    app.get('/dummyroute', (req, res) => res.send('dummy route'))
+    app.get('/dummyroute3', (req, res) => res.send('dummy route'))
 
-    app.get('/onemoreroute', (req, res) => res.send('another one'))
+    app.get('/onemoreroute3', (req, res) => res.send('another one'))
 }
 
 const startPolling1 = (pollBalance) => {
