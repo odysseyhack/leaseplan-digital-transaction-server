@@ -1,10 +1,4 @@
 const { asyncPoll } = require('async-poll')
-
-const addRoutes = (app, forwardTransaction) => {
-    app.post('/forward-transaction', function(req, res) {
-        forwardTransaction(req.body.Body, res)
-    });
-}
   
 const startPolling = (pollBalance) => {
     const conditionFn = d => false; //keep polling
@@ -18,5 +12,4 @@ const startPolling = (pollBalance) => {
         .catch(console.error);
 }
 
-module.exports.addRoutes = addRoutes
 module.exports.startPolling = startPolling
