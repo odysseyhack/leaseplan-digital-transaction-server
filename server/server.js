@@ -7,12 +7,6 @@ const addRoutes = (app, forwardTransaction) => {
         forwardTransaction(req.body.Body, res)
     });
 }
-
-const addMoreRoutes = (app) => {
-    app.get('/dummyroute', (req, res) => res.send('dummy route'))
-
-    app.get('/onemoreroute', (req, res) => res.send('another one'))
-}
   
 const startPolling = (pollBalance) => {
     const conditionFn = d => false; //keep polling
