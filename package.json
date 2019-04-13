@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,9 @@
     "express": "^4.16.4",
     "twilio": "^3.30.0",
     "web3": "^1.0.0-beta.52"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.3"
   }
 }
