@@ -3,7 +3,7 @@ const express = require('express')
 const { asyncPoll } = require('async-poll')
 const bodyParser = require('body-parser')
 require('dotenv').config()
-const { forwardTransaction, pollBalance } = require('./transactions')
+const { forwardTransaction, pollBalance } = require('./transactions/transactions')
 
 const app = express()
 const port = process.env.PORT || 5000
