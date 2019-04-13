@@ -1,5 +1,6 @@
 var Web3 = require("web3");
 var twilio = require('twilio');
+require('dotenv').config()
 
 var web3 = new Web3(
     new Web3.providers.HttpProvider(
@@ -48,7 +49,7 @@ const pollBalance = async () => web3.eth
           twilioClient.messages.create({
               body: message,
               to: '+31614610317',  
-              from: '+32460207921' 
+              from: process.env.TWILIO_PHONENUMBER 
           })
           .then((message) => console.log(message.sid));
         }
