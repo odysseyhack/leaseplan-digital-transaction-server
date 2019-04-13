@@ -25,8 +25,22 @@ const dummymethod1 = (app) => {
   app.get('/onemoreroute1', (req, res) => res.send('another one'))
 }
 
+const dummymethod2 = (app) => {
+  app.get('/dummyroute1', (req, res) => res.send('dummy route'))
+
+  app.get('/onemoreroute1', (req, res) => res.send('another one'))
+}
+
+const dummymethod3 = (app) => {
+  app.get('/dummyroute1', (req, res) => res.send('dummy route'))
+
+  app.get('/onemoreroute1', (req, res) => res.send('another one'))
+}
+
 dummymethod(app)
 dummymethod1(app)
+dummymethod2(app)
+dummymethod3(app)
 
 app.listen(port, () => console.log(`Transaction checker app listening on port ${port}!`))
 
