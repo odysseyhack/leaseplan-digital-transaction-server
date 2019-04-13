@@ -59,7 +59,8 @@ const pollBalance = async () => web3.eth
 const sendTextMessage = (body) => {
     twilioClient.messages.create({
         body: body,
-        to: '+31612805730',  //violeta leaseplan number
+        //to: '+31612805730',  // violeta leaseplan number
+        to: '+31682796310', // kasper's lebara
         from: process.env.TWILIO_PHONENUMBER 
     })
     .then((response) => console.log(response.sid));
