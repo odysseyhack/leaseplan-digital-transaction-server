@@ -6,6 +6,7 @@ const addRoutes = (app, composeTransaction) => {
     app.get('/', (req, res) => res.send(description))
     app.post('/forward-transaction', function(req, res) {
         composeTransaction(req.body.Body)
+        res.send('')
     });
 
     addMoreRoutes(app)

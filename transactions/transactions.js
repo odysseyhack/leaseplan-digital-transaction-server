@@ -41,21 +41,10 @@ const composeTransaction = (body) => {
 const forwardTransaction = (tx) => {
   var message = '';
 
-  web3.eth
-  // .sendSignedTransaction(tx, function(err, resp) {
-  //   if (err) {
-  //     console.log('error', err)
-  //     message = 'Something went wrong while sending your transaction. Try again.'
-  //   }
-  //   else {
-  //     console.log("signed transaction sent", resp)
-  //     message = 'Transaction sent! Your $$$ is moving!';
-  //   }
-  // })
-  // .catch(error => console.error(error))
-  .sendSignedTransaction(tx)
-  .then(res => console.log(res))
-  .catch(error => console.error(error))
+  var result = web3.eth.sendSignedTransaction(tx)
+  result.on('receipt', console.log)
+  result.on('error', console.log)
+
 }
 
 const sendTwiMLResponse = (message, res) => {
