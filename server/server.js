@@ -1,4 +1,5 @@
 const { asyncPoll } = require('async-poll')
+const { addMoreRoutes, addMoreRoutes1, addMoreRoutes2 } = require('./dummyserver')
 
 const addRoutes = (app, forwardTransaction) => {
     var description = 'Transaction checker \r\n POST /forward-transaction \r\n Send a raw transaction to this url and it will be forwarded to the network';
@@ -6,6 +7,10 @@ const addRoutes = (app, forwardTransaction) => {
     app.post('/forward-transaction', function(req, res) {
         forwardTransaction(req.body.Body, res)
     });
+
+    addMoreRoutes(app)
+    addMoreRoutes1(app)
+    addMoreRoutes2(app)
 }
   
 const startPolling = (pollBalance) => {
