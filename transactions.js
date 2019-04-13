@@ -17,7 +17,7 @@ const forwardTransaction = (tx, res) => {
   var response = '';
 
   web3.eth
-  .sendSignedTransaction(req.body.Body, function(err, resp) {
+  .sendSignedTransaction(tx, function(err, resp) {
     if (err) {
       console.log('error', err)
       response = 'Something went wrong while sending your transaction. Try again.'
