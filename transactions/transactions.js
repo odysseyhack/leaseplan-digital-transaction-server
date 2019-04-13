@@ -63,7 +63,8 @@ const sendTwiMLResponse = (message, res) => {
 
 
 const pollBalance = async () => web3.eth
-.getBalance("0x6b98b6D48B746F8a311249d949C7dc1A6Db51A77") //violeta's rinkeby address
+//.getBalance("0x6b98b6D48B746F8a311249d949C7dc1A6Db51A77") //violeta's rinkeby address
+.getBalance("0x115960decb7aa60f8d53c39cc65e30c860a2e171") //kasper's rinkeby address
 .then(balance => {
     console.log("polling")
     if (balance != currentBalance) {
