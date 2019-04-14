@@ -95,7 +95,7 @@ const pollBalance = function(simName) {
     .getBalance(stateData.address)
     .then(balance => {
         console.log("polling " + simName)
-        var balanceInEthers = math.divide(stateData.currentBalance, 1000000000000000000);
+        var balanceInEthers = math.divide(stateData.currentBalance, 1000000000000);
         console.log("balance in ethers", balanceInEthers)
         if (balance != stateData.currentBalance) {
             
@@ -106,6 +106,7 @@ const pollBalance = function(simName) {
               //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
               
               var message = `BALANCE|${balanceInEthers}`
+              console.log("BALANCE", message)
               sendTextMessage(message, simName);
             }
 
