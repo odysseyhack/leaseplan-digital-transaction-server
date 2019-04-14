@@ -10,13 +10,25 @@ var web3 = new Web3(
 
 var twilioClient = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
-var currentBalance = -1;
+var state = {
+  lebara1: { //ovidiu
+    address: '0x115960decb7aa60f8d53c39cc65e30c860a2e171', //kasper's address
+    number: '+31622167828',
+    currentBalance: -1,
+  },
+  lebara2: { //kasper
+    address: '0xacad7f7dad2d7490260007b388c48a45b31cf552', //another kasper's address
+    number: '+31682796310',
+    currentBalance: -1,
+  }
+}
+
 var currentTxId = '';
 var currentTx = '';
 
 const composeTransaction = (body) => {
   var split = body.split('|');
-  if (split && split.length() == 2) {
+  if (split && split.length == 2) {
     // the prefix is the Tx ID
     if (split[0] === currentTxId) {
       // means we have already started processing this message
@@ -39,17 +51,9 @@ const composeTransaction = (body) => {
 const forwardTransaction = (tx) => {
   var message = '';
 
-  web3.eth
-  .sendSignedTransaction(tx, function(err, resp) {
-    if (err) {
-      console.log('error', err)
-      message = 'Something went wrong while sending your transaction. Try again.'
-    }
-    else {
-      console.log("signed transaction sent", resp)
-      message = 'Transaction sent! Your $$$ is moving!';
-    }
-  })
+  var result = web3.eth.sendSignedTransaction(tx)
+  result.on('receipt', console.log)
+  result.on('error', console.log)
 }
 
 const sendTwiMLResponse = (message, res) => {
@@ -59,25 +63,55 @@ const sendTwiMLResponse = (message, res) => {
     res.end(twiml.toString());
 }
 
+const pollBalance = function(simName) {
+  return function() {
+    var stateData = state[simName];
+    web3.eth
+    //.getBalance("0x6b98b6D48B746F8a311249d949C7dc1A6Db51A77") //violeta's rinkeby address
+    .getBalance(stateData.address)
+    .then(balance => {
+        console.log("polling " + simName)
+        if (balance != stateData.currentBalance) {
+            
+            if (stateData.currentBalance >= 0) {
+              var balanceInEthers = web3.fromWei(currentBalance, 'ether')
+              // there's a change in balance, we need to notify the twilio app
+              console.log("balance has changed")
+              //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
+              var message = `BALANCE|${balanceInEthers}`
+              sendTextMessage(message);
+            }
 
-const pollBalance = async () => web3.eth
-.getBalance("0x6b98b6D48B746F8a311249d949C7dc1A6Db51A77") //violeta's rinkeby address
-.then(balance => {
-    console.log("polling")
-    if (balance != currentBalance) {
-        
-        if (currentBalance >= 0) {
-          var balanceInEthers = web3.fromWei(currentBalance, 'ether')
-          // there's a change in balance, we need to notify the twilio app
-          console.log("balance has changed")
-          //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
-          var message = `BALANCE|${balanceInEthers}`
-          sendTextMessage(message);
+            stateData.currentBalance = balance;
         }
+    })
+  }
+}
 
-        currentBalance = balance;
-    }
-})
+// const pollBalance = async (simName) => {
+//   () => {
+//     var stateData = state[simName];
+//     web3.eth
+//     //.getBalance("0x6b98b6D48B746F8a311249d949C7dc1A6Db51A77") //violeta's rinkeby address
+//     .getBalance(stateData.address)
+//     .then(balance => {
+//         console.log("polling " + simName)
+//         if (balance != stateData.currentBalance) {
+            
+//             if (stateData.currentBalance >= 0) {
+//               var balanceInEthers = web3.fromWei(currentBalance, 'ether')
+//               // there's a change in balance, we need to notify the twilio app
+//               console.log("balance has changed")
+//               //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
+//               var message = `BALANCE|${balanceInEthers}`
+//               sendTextMessage(message);
+//             }
+
+//             stateData.currentBalance = balance;
+//         }
+//     })
+//   }
+// }
 
 const sendTextMessage = (body) => {
     twilioClient.messages.create({
@@ -92,3 +126,4 @@ const sendTextMessage = (body) => {
 module.exports.forwardTransaction = forwardTransaction;
 module.exports.pollBalance = pollBalance;
 module.exports.composeTransaction = composeTransaction;
+module.exports.state = state;
