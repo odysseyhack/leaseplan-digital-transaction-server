@@ -1,5 +1,6 @@
 var Web3 = require("web3");
 var twilio = require('twilio');
+var math = require('mathjs');
 require('dotenv').config()
 
 var web3 = new Web3(
@@ -94,6 +95,8 @@ const pollBalance = function(simName) {
     .getBalance(stateData.address)
     .then(balance => {
         console.log("polling " + simName)
+        var balanceInEthers = math.divide(stateData.currentBalance, 1000000000000000000);
+        console.log("balance in ethers", balanceInEthers)
         if (balance != stateData.currentBalance) {
             
             if (stateData.currentBalance >= 0) {
@@ -101,7 +104,8 @@ const pollBalance = function(simName) {
               // there's a change in balance, we need to notify the twilio app
               console.log("balance has changed")
               //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
-              var message = `BALANCE|${stateData.currentBalance}`
+              
+              var message = `BALANCE|${balanceInEthers}`
               sendTextMessage(message, simName);
             }
 
