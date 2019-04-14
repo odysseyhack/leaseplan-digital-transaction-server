@@ -24,26 +24,44 @@ var state = {
 }
 
 var currentTxId = '';
-var currentTx = '';
+var currentTx1 = '';
+var currentTx2 = '';
 
 const composeTransaction = (body) => {
   var split = body.split('|');
-  if (split && split.length == 2) {
+  if (split && split.length == 3) {
     // the prefix is the Tx ID
-    if (split[0] === currentTxId) {
+    if (split[1] === currentTxId) {
       // means we have already started processing this message
-      currentTx += split[1];
+      //currentTx += split[1];
+      if (split[0] === '1') {
+        currentTx1 = split[2]
+      }
+      else if (split[0] === '2') {
+        currentTx2 = split[2]
+      }
 
-      forwardTransaction(currentTx);
-      console.log("currentTx", currentTx)
+      if (currentTx1.length > 0 && currentTx2.length > 0) {
+        var currentTx = currentTx1 + currentTx2;
 
-      currentTx = '';
-      currentTxId = '';
+        forwardTransaction(currentTx);
+        console.log("currentTx", currentTx)
+
+        currentTx1 = '';
+        currentTx2 = '';
+        currentTxId = '';
+      }
     }
     else {
       // means this is the beginning of a new transaction
-      currentTxId = split[0];
-      currentTx = split[1];
+      currentTxId = split[1];
+      
+      if (split[0] === '1') {
+        currentTx1 = split[2]
+      }
+      else if (split[0] === '2') {
+        currentTx2 = split[2]
+      }
     }
   }
 }
