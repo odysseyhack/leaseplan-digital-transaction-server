@@ -29,11 +29,7 @@ var currentTx2 = '';
 
 const composeTransaction = (body) => {
   var split = body.split('|');
-<<<<<<< HEAD
   if (split && split.length == 3) {
-=======
-  if (split && split.length == 2) {
->>>>>>> master
     // the prefix is the Tx ID
     if (split[1] === currentTxId) {
       
