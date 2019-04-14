@@ -77,10 +77,6 @@ const forwardTransaction = (tx) => {
   var result = web3.eth.sendSignedTransaction(tx)
   result.on('receipt', console.log)
   result.on('error', console.log)
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 }
 
 const sendTwiMLResponse = (message, res) => {
@@ -109,24 +105,7 @@ const pollBalance = function(simName) {
               sendTextMessage(message);
             }
 
-<<<<<<< HEAD
             stateData.currentBalance = balance;
-=======
-const pollBalance = async () => web3.eth
-//.getBalance("0x6b98b6D48B746F8a311249d949C7dc1A6Db51A77") //violeta's rinkeby address
-.getBalance("0x115960decb7aa60f8d53c39cc65e30c860a2e171") //kasper's rinkeby address
-.then(balance => {
-    console.log("polling")
-    if (balance != currentBalance) {
-        
-        if (currentBalance >= 0) {
-          var balanceInEthers = web3.fromWei(currentBalance, 'ether')
-          // there's a change in balance, we need to notify the twilio app
-          console.log("balance has changed ")
-          //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
-          var message = `BALANCE|${balanceInEthers}`
-          sendTextMessage(message);
->>>>>>> master
         }
     })
   }
