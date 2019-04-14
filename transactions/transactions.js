@@ -101,8 +101,8 @@ const pollBalance = function(simName) {
               // there's a change in balance, we need to notify the twilio app
               console.log("balance has changed")
               //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
-              var message = `BALANCE|${currentBalance}`
-              sendTextMessage(message);
+              var message = `BALANCE|${stateData.currentBalance}`
+              sendTextMessage(message, simName);
             }
 
             stateData.currentBalance = balance;
@@ -136,11 +136,14 @@ const pollBalance = function(simName) {
 //   }
 // }
 
-const sendTextMessage = (body) => {
+const sendTextMessage = (body, simName) => {
+  var stateData = state[simName];
+  console.log("statedata", stateData);
     twilioClient.messages.create({
         body: body,
         //to: '+31612805730',  // violeta leaseplan number
-        to: '+31682796310', // kasper's lebara
+        //to: '+31682796310', // kasper's lebara
+        to: stateData.number,
         from: process.env.TWILIO_PHONENUMBER 
     })
     .then((response) => console.log(response.sid));
