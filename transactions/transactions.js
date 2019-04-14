@@ -97,11 +97,11 @@ const pollBalance = function(simName) {
         if (balance != stateData.currentBalance) {
             
             if (stateData.currentBalance >= 0) {
-              var balanceInEthers = web3.fromWei(stateData.currentBalance, 'ether')
+              //var balanceInEthers = web3.fromWei(stateData.currentBalance, 'ether')
               // there's a change in balance, we need to notify the twilio app
               console.log("balance has changed")
               //var message = `Your new balance is ${currentBalance}. ${balance > currentBalance ? 'Your funds are growing. Good on you.' : '$$$ flying away. Watch your pocket!'}`
-              var message = `BALANCE|${balanceInEthers}`
+              var message = `BALANCE|${currentBalance}`
               sendTextMessage(message);
             }
 
