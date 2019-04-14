@@ -32,6 +32,7 @@ const composeTransaction = (body) => {
   if (split && split.length == 3) {
     // the prefix is the Tx ID
     if (split[1] === currentTxId) {
+      
       // means we have already started processing this message
       //currentTx += split[1];
       if (split[0] === '1') {
@@ -40,6 +41,8 @@ const composeTransaction = (body) => {
       else if (split[0] === '2') {
         currentTx2 = split[2]
       }
+
+      console.log("second part of tx", body, currentTx1, currentTx2, currentTxId)
 
       if (currentTx1.length > 0 && currentTx2.length > 0) {
         var currentTx = currentTx1 + currentTx2;
@@ -62,6 +65,8 @@ const composeTransaction = (body) => {
       else if (split[0] === '2') {
         currentTx2 = split[2]
       }
+
+      console.log("first part of tx", body, currentTx1, currentTx2, currentTxId)
     }
   }
 }
